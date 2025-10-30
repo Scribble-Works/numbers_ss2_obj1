@@ -1,0 +1,164 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.game-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 5px;
+}
+
+p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.problem-area {
+    background-color: #e0f7fa; /* Light blue */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+#problem-text {
+    font-size: 2em;
+    font-weight: bold;
+    color: #00796b; /* Teal */
+}
+
+.input-area {
+    margin-bottom: 20px;
+}
+
+#answer-input {
+    padding: 10px;
+    font-size: 1.1em;
+    width: calc(100% - 22px);
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#check-button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+#check-button:hover {
+    background-color: #45a049;
+}
+
+#next-button {
+    background-color: #2196F3; /* Blue */
+    color: white;
+}
+
+#next-button:hover {
+    background-color: #0b7dda;
+}
+
+.feedback-message {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 15px;
+    min-height: 30px; /* To prevent layout shift */
+}
+
+.correct {
+    color: #4CAF50; /* Green */
+}
+
+.incorrect {
+    color: #F44336; /* Red */
+}
+
+.hidden {
+    display: none;
+}
+/* Add this to style.css */
+#score-display {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #00897b; /* Darker Teal */
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 2px solid #b2dfdb;
+    border-radius: 8px;
+    background-color: #e0f2f1; /* Very light teal background */
+}
+/* Add this to style.css */
+#hint-button {
+    background-color: #ff9800; /* Orange */
+    color: white;
+    margin-top: 5px;
+}
+
+#hint-button:hover {
+    background-color: #fb8c00;
+}
+
+#hint-display {
+    text-align: left;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff3e0; /* Light orange background for hint */
+    border: 1px dashed #ff9800;
+    font-size: 1em;
+}
+
+#hint-display.incorrect { /* Override the red for a helpful hint */
+    color: #333; 
+}
+/* Add this to style.css */
+#question-counter {
+    font-size: 1.1em;
+    color: #00796b; /* Teal */
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding: 5px;
+}
+
+#play-again-button {
+    background-color: #f44336; /* Red for emphasis */
+    color: white;
+    width: 100%;
+}
+
+#play-again-button:hover {
+    background-color: #d32f2f;
+}
+
+/* Ensure the end game feedback stands out */
+#feedback.correct {
+    border: 3px solid #4CAF50;
+    background-color: #e8f5e9;
+    padding: 20px;
+    border-radius: 10px;
+}
