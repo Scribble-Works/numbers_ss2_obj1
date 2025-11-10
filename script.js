@@ -46,22 +46,32 @@ function generateProblem() {
         return;
     }
     
-    // --- Problem Generation Logic (Similar to previous versions) ---
+    // --- Problem Generation Logic (CORRECTED) ---
     const randomNumber = (Math.random() * 99.9 + 0.1).toFixed(Math.floor(Math.random() * 3) + 1);
     const num = parseFloat(randomNumber);
     const powerIndex = Math.floor(Math.random() * powers.length);
-    const power = powers[powerIndex];
-    let operation = (Math.random() < 0.5) ? 'x' : '/';
-    const actualMultiplier = (operation === 'x') ? (1 / power) : (1 / (1 / power));
-    let correctAnswer = num * actualMultiplier; 
+    const originalPower = powers[powerIndex]; // The true power (e.g., 0.1 or 10)
+    let originalOperation = (Math.random() < 0.5) ? 'x' : '/'; // The true operation
 
-    let displayPower;
-    let displayOperation = operation;
-    if (power >= 1) {
-        displayPower = power;
+    // 1. CALCULATE THE CORRECT ANSWER based on the true problem
+    let correctAnswer;
+    if (originalOperation === 'x') {
+        correctAnswer = num * originalPower;
     } else {
-        displayPower = 1 / power; 
-        displayOperation = (operation === 'x') ? '/' : 'x'; 
+        correctAnswer = num / originalPower;
+    }
+
+    // 2. Determine DISPLAY values (ensuring power shown is always >= 1)
+    let displayPower;
+    let displayOperation = originalOperation; 
+
+    if (originalPower >= 1) {
+        // If the original power is 10, 100, 1000, use it directly.
+        displayPower = originalPower;
+    } else {
+        // If the original power is 0.1, 0.01, 0.001, invert the power AND the operation for display.
+        displayPower = 1 / originalPower; 
+        displayOperation = (originalOperation === 'x') ? '/' : 'x'; // Flip the operation for display
     }
 
     currentProblem = {
@@ -132,16 +142,20 @@ function giveHint() {
     const { operation, power } = currentProblem;
     const powerString = power.toString();
     
-    let places = powerString.includes('.') ? powerString.split('.')[1].length : powerString.length - 1; 
+    // The hint calculation now relies on the displayed power (which is always 10, 100, or 1000)
+    // The number of places is one less than the number of digits (e.g., 100 has 3 digits, move 2 places).
+    let places = powerString.length - 1; 
 
     let direction;
     let action;
 
-    // Determine direction based on operation and power magnitude
-    if (operation === 'x' && power >= 1 || operation === '/' && power < 1) {
+    // Determine direction based on displayed operation and the fact that displayed power is >= 1
+    // Multiplication (x 10, x 100) makes the number larger, moving decimal right.
+    // Division (/ 10, / 100) makes the number smaller, moving decimal left.
+    if (operation === 'x') {
         direction = 'right';
         action = 'larger';
-    } else {
+    } else { // operation === '/'
         direction = 'left';
         action = 'smaller';
     }
@@ -234,7 +248,7 @@ function restartGame() {
  * Helper function to determine decimal places for display.
  */
 function getDecimalPlaces(num) {
-    const parts = num.toString().split('.');
+    // Use the original logic, which attempts to show the answer without trailing zeros
     const answerString = parseFloat(num).toFixed(4).replace(/\.?0+$/, "");
     const parts_clean = answerString.split('.');
     return parts_clean.length > 1 ? parts_clean[1].length : 0;
